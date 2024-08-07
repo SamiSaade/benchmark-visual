@@ -17,7 +17,7 @@ def benchmarkParse(path = 'path/to/benchmark.json'):
 
         df = pd.json_normalize(json_data, 'benchmarks')
         df[['library', 'sampleNumber']] = df['name'].str.split('/', expand=True)
-        df = df.drop(columns=['name','run_name','run_type','repetitions','repetition_index'])
+        df = df.drop(columns=['name','run_name','run_type','repetitions','repetition_index','family_index','per_family_instance_index','threads'])
         df['library'] = df['library'].str[3:]
 
         df.insert(0, 'library', df.pop('library'))
@@ -41,6 +41,7 @@ def plotBenchmark(dataFrame, libraries=['all'], property='cpu_time', isLog = Tru
     #grouping data by unique library name
     dataLibs = dataFrame.groupby('library')[property].unique()
     samplesLibs = dataFrame.groupby('library')['sampleNumber'].unique()
+
     fig, ax = plt.subplots(figsize=[10, 6])
 
     #plotting all libraries
@@ -77,3 +78,15 @@ def plotBenchmark(dataFrame, libraries=['all'], property='cpu_time', isLog = Tru
     ax.set_ylabel('CPU Time (ns)')
     
     return fig
+
+def benchRank(dataFrame, property='cpu_time', rankRange = [2,14]):
+
+
+    dataFrame['sampleNumber'] = pd.to_numeric(dataFrame['sampleNumber'])
+    dataFrame['cpu_time'] = pd.to_numeric(dataFrame[property])
+    rankedData = dataFrame.sort_values(by=['sampleNumber',property])
+
+    samples = [2**rankRange[0],2**rankRange[1]]
+    rankedData = rankedData.loc[(rankedData['sampleNumber'] >= samples[0]) & (rankedData['sampleNumber'] <= samples[1])][['sampleNumber','library','cpu_time','real_time','time_unit']]
+
+    return rankedData
