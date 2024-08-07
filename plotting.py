@@ -1,4 +1,6 @@
-# A set of helper functions to visualize the benchmark data 
+# This file is only to provide the helper functions to viz.ipynb
+# 
+#
 import json
 import pandas as pd
 import matplotlib.pyplot as plt
