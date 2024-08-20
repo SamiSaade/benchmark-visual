@@ -4,6 +4,7 @@
 import json
 import pandas as pd
 import matplotlib.pyplot as plt
+import numpy as np
 
 def benchmarkParse(path = 'path/to/benchmark.json'):
     '''
@@ -26,61 +27,77 @@ def benchmarkParse(path = 'path/to/benchmark.json'):
     else:
         print('specify a benchmark path')
 
+def appendFFTMflops(dataFrame):
+    '''
+    appends MFLOPS column according to FFTW's scaling with MFLOPS = 5*N*log_2(N) / time
+    -----------------
+    dataFrame <pd dataframe>: of the benchmark data
+    '''
+    cpu_time = dataFrame['cpu_time'].astype(float)
+    N = dataFrame['sampleNumber'].astype(float)
+    MFLOPS = np.divide(np.multiply(5*N,np.log2(N)),cpu_time)
+    dataFrame['MFLOPS'] = MFLOPS
 
-def plotBenchmark(dataFrame, libraries=['all'], property='cpu_time', isLog = True, plotTitle = ''):
+    return dataFrame
+
+
+
+def plotBenchmark(dataFrame, libraries=['all'], property='cpu_time', isLog = True, size = [5,5], plotTitle = ''):
     '''
     plots a property of the benchmark accross the sample numbers for each specified library.
     -----------------
     dataFrame <pd dataframe>: of the benchmark data
-    libraries <string>: the library names you want to test.
+    libraries <string>: the library names you want to test
     property <string>: the property to be plotted in the y-axis
     isLog <bool>: sets the y axis to be logarithmic
+    size: figure size parameter
     plotTitle <string>: sets the plot title
     '''
 
-    #grouping data by unique library name
-    dataLibs = dataFrame.groupby('library')[property].unique()
-    samplesLibs = dataFrame.groupby('library')['sampleNumber'].unique()
-
-    fig, ax = plt.subplots(figsize=[10, 6])
-
-    #plotting all libraries
+    #setting libraries
     if(libraries[0] == 'all'):
+        libraries = pd.unique(dataFrame['library'])
         print('plotting all libraries')
-        for lib in dataLibs.keys():
-            time = dataLibs[lib].astype(float)
-            samples = samplesLibs[lib].astype(int)
-            ax.plot(samples, time, marker='.', ls=':')
-        ax.legend(dataLibs.keys())
-
-    #plotting select libraries
     else:
-        removeLib = []
+        templib = []
         for lib in libraries:
-            if(lib in dataLibs.keys()):
-                time = dataLibs[lib].astype(float)
-                samples = samplesLibs[lib].astype(int)
-                ax.plot(samples, time, marker='.', ls=':')
+            if(lib in pd.unique(dataFrame['library'])):
+               templib.append(lib)
             else:
-                print(lib + ' not found in dataset')
-                removeLib.append(lib)
-        for lib in removeLib:
-            libraries.remove(lib)
-        ax.legend(libraries)
+                print(lib + ' not found in dataframe')
+        libraries = templib
+
+    #plot styling
+    plt.rc('font',family='Times New Roman')
+    plt.style.use('fivethirtyeight')
+    
+    fig, ax = plt.subplots(figsize=size)
+
+    #plotting
+    for lib in libraries:
+        libData = dataFrame[dataFrame['library'] == lib]
+        y = libData[property].astype(float)
+        samples = libData['sampleNumber'].astype(int)
+        ax.plot(samples, y, marker='.')
 
     #figure adjustments
+    ax.legend(libraries,bbox_to_anchor=(0, 1.02, 1, 0.2), loc="lower left",
+                mode="expand", borderaxespad=0, ncol = 3)
     ax.set_xscale('log', base=2)
     if(isLog):
         ax.set_yscale('log')
-    ax.set_xticks(samplesLibs[0].astype(int))
-    ax.set_title(plotTitle)
+    
+    if(plotTitle != ''):
+        ax.set_title(plotTitle)
     ax.set_xlabel('Samples')
-    ax.set_ylabel('CPU Time (ns)')
+    ax.set_ylabel(property)
     
     return fig
 
 def benchRank(dataFrame, property='cpu_time', rankRange = [2,14]):
-
+    '''
+    Ranks the libraries according to a certain property
+    '''
 
     dataFrame['sampleNumber'] = pd.to_numeric(dataFrame['sampleNumber'])
     dataFrame['cpu_time'] = pd.to_numeric(dataFrame[property])

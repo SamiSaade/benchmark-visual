@@ -1,0 +1,193 @@
+{
+  "context": {
+    "date": "2024-08-19T20:10:53+01:00",
+    "host_name": "SAMI_DSP",
+    "executable": "C:\\dev\\fft-biquad-benchmark\\out\\build\\Release\\FFTBiquadBenchmark.exe",
+    "num_cpus": 8,
+    "mhz_per_cpu": 1440,
+    "caches": [
+      {
+        "type": "Instruction",
+        "level": 1,
+        "size": 32768,
+        "num_sharing": 1
+      },
+      {
+        "type": "Data",
+        "level": 1,
+        "size": 32768,
+        "num_sharing": 1
+      },
+      {
+        "type": "Unified",
+        "level": 2,
+        "size": 524288,
+        "num_sharing": 1
+      },
+      {
+        "type": "Unified",
+        "level": 3,
+        "size": 8388608,
+        "num_sharing": 8
+      }
+    ],
+    "load_avg": [],
+    "library_build_type": "release"
+  },
+  "benchmarks": [
+    {
+      "name": "bm_pffft/16",
+      "family_index": 0,
+      "per_family_instance_index": 0,
+      "run_name": "bm_pffft/16",
+      "run_type": "iteration",
+      "repetitions": 1,
+      "repetition_index": 0,
+      "threads": 1,
+      "iterations": 10000000,
+      "real_time": 4.9421299993991852e+01,
+      "cpu_time": 5.0000000000000000e+01,
+      "time_unit": "ns"
+    },
+    {
+      "name": "bm_pffft/32",
+      "family_index": 0,
+      "per_family_instance_index": 1,
+      "run_name": "bm_pffft/32",
+      "run_type": "iteration",
+      "repetitions": 1,
+      "repetition_index": 0,
+      "threads": 1,
+      "iterations": 6400000,
+      "real_time": 1.1123396870971192e+02,
+      "cpu_time": 1.0986328125000000e+02,
+      "time_unit": "ns"
+    },
+    {
+      "name": "bm_pffft/64",
+      "family_index": 0,
+      "per_family_instance_index": 2,
+      "run_name": "bm_pffft/64",
+      "run_type": "iteration",
+      "repetitions": 1,
+      "repetition_index": 0,
+      "threads": 1,
+      "iterations": 2986667,
+      "real_time": 2.3044005232460643e+02,
+      "cpu_time": 2.3542129068958809e+02,
+      "time_unit": "ns"
+    },
+    {
+      "name": "bm_pffft/128",
+      "family_index": 0,
+      "per_family_instance_index": 3,
+      "run_name": "bm_pffft/128",
+      "run_type": "iteration",
+      "repetitions": 1,
+      "repetition_index": 0,
+      "threads": 1,
+      "iterations": 1000000,
+      "real_time": 5.4675390012562275e+02,
+      "cpu_time": 5.4687500000000000e+02,
+      "time_unit": "ns"
+    },
+    {
+      "name": "bm_pffft/256",
+      "family_index": 0,
+      "per_family_instance_index": 4,
+      "run_name": "bm_pffft/256",
+      "run_type": "iteration",
+      "repetitions": 1,
+      "repetition_index": 0,
+      "threads": 1,
+      "iterations": 560000,
+      "real_time": 1.1821125002045717e+03,
+      "cpu_time": 1.1718750000000000e+03,
+      "time_unit": "ns"
+    },
+    {
+      "name": "bm_pffft/512",
+      "family_index": 0,
+      "per_family_instance_index": 5,
+      "run_name": "bm_pffft/512",
+      "run_type": "iteration",
+      "repetitions": 1,
+      "repetition_index": 0,
+      "threads": 1,
+      "iterations": 263529,
+      "real_time": 2.7266300861036316e+03,
+      "cpu_time": 2.7866952024255397e+03,
+      "time_unit": "ns"
+    },
+    {
+      "name": "bm_pffft/1024",
+      "family_index": 0,
+      "per_family_instance_index": 6,
+      "run_name": "bm_pffft/1024",
+      "run_type": "iteration",
+      "repetitions": 1,
+      "repetition_index": 0,
+      "threads": 1,
+      "iterations": 112000,
+      "real_time": 5.9927294662754448e+03,
+      "cpu_time": 5.9988839285714284e+03,
+      "time_unit": "ns"
+    },
+    {
+      "name": "bm_pffft/2048",
+      "family_index": 0,
+      "per_family_instance_index": 7,
+      "run_name": "bm_pffft/2048",
+      "run_type": "iteration",
+      "repetitions": 1,
+      "repetition_index": 0,
+      "threads": 1,
+      "iterations": 49778,
+      "real_time": 1.3591086418900433e+04,
+      "cpu_time": 1.3497428582908113e+04,
+      "time_unit": "ns"
+    },
+    {
+      "name": "bm_pffft/4096",
+      "family_index": 0,
+      "per_family_instance_index": 8,
+      "run_name": "bm_pffft/4096",
+      "run_type": "iteration",
+      "repetitions": 1,
+      "repetition_index": 0,
+      "threads": 1,
+      "iterations": 23579,
+      "real_time": 2.9639942333190069e+04,
+      "cpu_time": 2.9157300988167437e+04,
+      "time_unit": "ns"
+    },
+    {
+      "name": "bm_pffft/8192",
+      "family_index": 0,
+      "per_family_instance_index": 9,
+      "run_name": "bm_pffft/8192",
+      "run_type": "iteration",
+      "repetitions": 1,
+      "repetition_index": 0,
+      "threads": 1,
+      "iterations": 11200,
+      "real_time": 6.6184508905280381e+04,
+      "cpu_time": 6.8359375000000000e+04,
+      "time_unit": "ns"
+    },
+    {
+      "name": "bm_pffft/16384",
+      "family_index": 0,
+      "per_family_instance_index": 10,
+      "run_name": "bm_pffft/16384",
+      "run_type": "iteration",
+      "repetitions": 1,
+      "repetition_index": 0,
+      "threads": 1,
+      "iterations": 4978,
+      "real_time": 1.4109063879337930e+05,
+      "cpu_time": 1.4124648453194054e+05,
+      "time_unit": "ns"
+    }
+  ]
+}
